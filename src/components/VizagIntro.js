@@ -508,20 +508,22 @@ export default function VizagIntro() {
         {/* LOGO */}
         <div style={{
           display: 'flex', flexDirection: 'column', alignItems: 'center', userSelect: 'none',
+          width: '100%', padding: '0 16px', boxSizing: 'border-box',
         }}>
           <div style={{
-            display: 'flex', alignItems: 'baseline', lineHeight: 1,
+            display: 'flex', alignItems: 'baseline', justifyContent: 'center',
+            lineHeight: 1, flexWrap: 'nowrap', whiteSpace: 'nowrap',
           }}>
             <span id="logo-brand" style={{
               fontFamily: 'var(--font-logo)',
-              fontSize: 'clamp(3rem, 10vw, 7rem)',
+              fontSize: 'clamp(2rem, 9vw, 7rem)',
               color: '#FAFAFA', letterSpacing: '0.06em', opacity: 0,
               textShadow: '0 0 30px rgba(255,255,255,0.1)',
             }}>BRAND</span>
 
             <span id="logo-two" style={{
               fontFamily: 'var(--font-logo)',
-              fontSize: 'clamp(3.8rem, 13vw, 9rem)',
+              fontSize: 'clamp(2.6rem, 12vw, 9rem)',
               color: '#C41230', fontWeight: 700, fontStyle: 'italic',
               margin: '0 -2px', opacity: 0, display: 'inline-block',
               textShadow: '0 0 40px rgba(196,18,48,0.5), 0 0 80px rgba(196,18,48,0.2)',
@@ -530,23 +532,23 @@ export default function VizagIntro() {
 
             <span id="logo-brands" style={{
               fontFamily: 'var(--font-logo)',
-              fontSize: 'clamp(3rem, 10vw, 7rem)',
+              fontSize: 'clamp(2rem, 9vw, 7rem)',
               color: '#FAFAFA', letterSpacing: '0.06em', opacity: 0,
               textShadow: '0 0 30px rgba(255,255,255,0.1)',
             }}>BRAND&apos;S</span>
           </div>
 
           <div id="logo-underline" style={{
-            width: 'clamp(200px, 50vw, 500px)', height: '2px',
+            width: 'clamp(160px, 50vw, 500px)', height: '2px',
             background: 'linear-gradient(90deg, transparent, #C41230, #B8860B, #C41230, transparent)',
             marginTop: '8px', transformOrigin: 'center', transform: 'scaleX(0)',
           }} />
 
           <span id="logo-subtitle" style={{
             fontFamily: 'var(--font-subheading)',
-            fontSize: 'clamp(0.65rem, 1.5vw, 1rem)',
+            fontSize: 'clamp(0.55rem, 1.5vw, 1rem)',
             color: '#B8860B', fontStyle: 'italic',
-            letterSpacing: '0.35em', marginTop: '14px',
+            letterSpacing: 'clamp(0.15em, 1vw, 0.35em)', marginTop: '14px',
             opacity: 0, textTransform: 'uppercase',
           }}>Fashion Store</span>
         </div>

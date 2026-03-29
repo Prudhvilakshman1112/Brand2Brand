@@ -1611,20 +1611,22 @@ h5, h6 {
 
 @media (max-width: 768px) {
   .split-hero {
-    grid-template-columns: 1fr 1fr;
-  }
-  .split-half {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
     min-height: calc(100vh - 72px);
   }
+  .split-half {
+    min-height: 0;
+  }
   .split-half-content h2 {
-    font-size: 1.3rem;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
   }
   .split-half-content p {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
   }
   .split-half-content .btn-magnetic {
-    padding: 8px 16px;
-    font-size: 0.7rem;
+    padding: 10px 20px;
+    font-size: 0.75rem;
   }
 }
 
@@ -1980,6 +1982,13 @@ h5, h6 {
 .vizag-logo-reveal .header-logo {
   font-size: 3rem;
   justify-content: center;
+}
+
+/* ── Intro mobile fix: prevent logo cropping ── */
+@media (max-width: 480px) {
+  #intro-stage {
+    padding: 0 12px;
+  }
 }
 
 /* ============================================
