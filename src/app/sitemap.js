@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 
 const BASE_URL = 'https://brand2brand.com';
 
@@ -14,10 +14,10 @@ export default async function sitemap() {
     { url: `${BASE_URL}/footwear/women`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
   ];
 
-  // Dynamic product pages
+  // Dynamic product pages (use admin client — no cookie dependency for crawler requests)
   let productPages = [];
   try {
-    const supabase = await createClient();
+    const supabase = createAdminClient();
     const { data: products } = await supabase
       .from('products')
       .select('id, created_at')
