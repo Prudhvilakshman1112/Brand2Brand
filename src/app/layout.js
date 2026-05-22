@@ -13,14 +13,16 @@ const CartDrawer = dynamic(() => import('@/components/CartDrawer'));
 const VizagIntro = dynamic(() => import('@/components/VizagIntro'));
 
 export const metadata = {
-  title: "Brand Two Brand's | Premium Men's Fashion Store - Vizag",
+  title: 'Brand 2 Brand | Premium Multi-Brand E-Commerce Store',
   description:
-    "Vizag's premier men's lifestyle destination. Shop curated clothing, footwear & accessories at Brand Two Brand, Visakhapatnam's finest fashion store.",
-  keywords: 'Brand Two Brand, Vizag fashion, men clothing Vizag, footwear Visakhapatnam, watches, accessories',
+    'Shop the latest premium clothing, footwear, and accessories at Brand 2 Brand. Discover exclusive trends and top-tier styles with nationwide delivery.',
+  keywords: 'Brand 2 Brand, premium fashion, clothing, footwear, accessories, e-commerce, nationwide delivery',
   openGraph: {
-    title: "Brand Two Brand's | Fashion Store",
-    description: "Premium Men's Lifestyle Store in Visakhapatnam",
+    title: 'Brand 2 Brand | Premium Multi-Brand E-Commerce Store',
+    description:
+      'Shop the latest premium clothing, footwear, and accessories at Brand 2 Brand. Discover exclusive trends and top-tier styles with nationwide delivery.',
     type: 'website',
+    url: 'https://brand2brand.com',
   },
 };
 
@@ -34,6 +36,7 @@ export default function RootLayout({ children }) {
             <Header />
             <CartDrawer />
             <main className="page-content">
+              <h1 className="sr-only">Brand 2 Brand E-Commerce Store</h1>
               {children}
             </main>
             <Footer />

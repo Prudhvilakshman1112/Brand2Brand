@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 
-const BASE_URL = 'https://brand2brands.vercel.app';
+const BASE_URL = 'https://brand2brand.com';
 
 export default async function sitemap() {
   // Static pages
