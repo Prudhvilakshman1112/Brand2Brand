@@ -2,20 +2,20 @@
  * Brand 2 Brand — Category Discount Configuration
  *
  * Clothing   → 10% off
- * Footwear   → 20% off
- * Accessories → 30% off
+ * Footwear   → 10% off
+ * Accessories → 10% off
  */
 
 export const DISCOUNT_RATES = {
   clothing: 0.10,
-  footwear: 0.20,
-  accessories: 0.30,
+  footwear: 0.10,
+  accessories: 0.10,
 };
 
 export const DISCOUNT_LABELS = {
   clothing: '10% OFF',
-  footwear: '20% OFF',
-  accessories: '30% OFF',
+  footwear: '10% OFF',
+  accessories: '10% OFF',
 };
 
 /** Returns the discount rate (0–1) for a given category. */
@@ -101,7 +101,7 @@ export function buildWhatsAppMessage(itemBreakdown, totals) {
   lines.push('━━━━━━━━━━━━━━━━━━━━');
 
   // Category savings
-  const catNames = { clothing: 'Clothing (10% off)', footwear: 'Footwear (20% off)', accessories: 'Accessories (30% off)' };
+  const catNames = { clothing: 'Clothing (10% off)', footwear: 'Footwear (10% off)', accessories: 'Accessories (10% off)' };
   for (const [cat, saving] of Object.entries(totals.savingsByCategory)) {
     if (saving > 0) {
       lines.push(`${catNames[cat]} saved: −₹${fmt(Math.round(saving))}`);

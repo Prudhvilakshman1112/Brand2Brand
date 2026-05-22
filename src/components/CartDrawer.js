@@ -9,8 +9,8 @@ const OWNER_PHONE = '918074548419';
 
 const CATEGORY_DISCOUNT_LABELS = {
   clothing: 'Clothing (10% off)',
-  footwear: 'Footwear (20% off)',
-  accessories: 'Accessories (30% off)',
+  footwear: 'Footwear (10% off)',
+  accessories: 'Accessories (10% off)',
 };
 
 function fmt(n) {

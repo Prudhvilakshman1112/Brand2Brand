@@ -10,8 +10,8 @@ import { useAtmosphere } from '@/context/AtmosphereContext';
 /* ── Animated Discount Banner ── */
 const BANNER_ITEMS = [
   { emoji: '🎽', label: 'CLOTHING', pct: '10%', desc: 'Off All Clothing', color: '#C41230' },
-  { emoji: '👟', label: 'FOOTWEAR', pct: '20%', desc: 'Off All Footwear', color: '#B8860B' },
-  { emoji: '💎', label: 'ACCESSORIES', pct: '30%', desc: 'Off All Accessories', color: '#7C3AED' },
+  { emoji: '👟', label: 'FOOTWEAR', pct: '10%', desc: 'Off All Footwear', color: '#B8860B' },
+  { emoji: '💎', label: 'ACCESSORIES', pct: '10%', desc: 'Off All Accessories', color: '#7C3AED' },
 ];
 
 function DiscountBanner() {
