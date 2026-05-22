@@ -8,32 +8,185 @@ import ProductCard from '@/components/ProductCard';
 import { generatePlaceholder } from '@/lib/imageUtils';
 
 // ── Colour name → CSS value lookup ──────────────────────────────────────────
+// Comprehensive map so every colour swatch shows the correct colour circle,
+// including for future products added via the admin panel.
 const COLOR_CSS = {
-  'black':       '#1A1A1A',
-  'navy':        '#1B3A6B',
-  'white':       '#F0F0F0',
-  'red':         '#C41230',
-  'blue':        '#2563EB',
-  'charcoal':    '#4A4A4A',
-  'indigo':      '#3B3B8C',
-  'dark indigo': '#1E1B6B',
-  'medium blue': '#4A78C4',
-  'mint':        '#98D4C4',
-  'peach':       '#FFCBA4',
-  'sky blue':    '#87CEEB',
-  'light blue':  '#93C5FD',
-  'pink':        '#F9A8D4',
-  'grey':        '#9CA3AF',
-  'gray':        '#9CA3AF',
-  'green':       '#16A34A',
-  'cream':       '#FFF8DC',
-  'washed blue': '#6B9EC5',
-  'multi':       'linear-gradient(135deg,#C41230,#F59E0B,#2563EB,#16A34A)',
+  // ── Neutrals ──
+  'black':         '#1A1A1A',
+  'charcoal':      '#4A4A4A',
+  'dark grey':     '#555555',
+  'dark gray':     '#555555',
+  'grey':          '#9CA3AF',
+  'gray':          '#9CA3AF',
+  'light grey':    '#C8C8C8',
+  'light gray':    '#C8C8C8',
+  'silver':        '#C0C0C0',
+  'white':         '#F0F0F0',
+  'off white':     '#F5F0E8',
+  'ivory':         '#FFFFF0',
+  'cream':         '#FFF8DC',
+  'beige':         '#D4B896',
+  'tan':           '#D2B48C',
+  'khaki':         '#C3B091',
+  'sand':          '#DBC8A0',
+  'taupe':         '#8B7D6B',
+
+  // ── Browns ──
+  'brown':         '#7B3F00',
+  'dark brown':    '#4A2C0A',
+  'light brown':   '#A67B5B',
+  'chocolate':     '#4E2A04',
+  'coffee':        '#6F4E37',
+  'camel':         '#C19A6B',
+  'rust':          '#B7410E',
+  'copper':        '#B87333',
+
+  // ── Reds ──
+  'red':           '#C41230',
+  'dark red':      '#8B0000',
+  'maroon':        '#800020',
+  'burgundy':      '#800020',
+  'wine':          '#722F37',
+  'crimson':       '#DC143C',
+  'scarlet':       '#FF2400',
+  'cherry':        '#DE3163',
+  'brick':         '#CB4154',
+  'brick red':     '#CB4154',
+
+  // ── Pinks ──
+  'pink':          '#F9A8D4',
+  'hot pink':      '#FF69B4',
+  'light pink':    '#FFB6C1',
+  'rose':          '#E8909C',
+  'blush':         '#DE6FA1',
+  'salmon':        '#FA8072',
+  'coral':         '#FF7F50',
+  'fuchsia':       '#FF00FF',
+  'magenta':       '#FF0090',
+  'dusty pink':    '#D4A5A5',
+  'mauve':         '#E0B0FF',
+
+  // ── Oranges ──
+  'orange':        '#F97316',
+  'dark orange':   '#CC5500',
+  'burnt orange':  '#CC5500',
+  'peach':         '#FFCBA4',
+  'apricot':       '#FBCEB1',
+  'tangerine':     '#FF9966',
+  'amber':         '#FFBF00',
+
+  // ── Yellows ──
+  'yellow':        '#F59E0B',
+  'gold':          '#D4AF37',
+  'rose gold':     '#B76E79',
+  'mustard':       '#E1AD01',
+  'lemon':         '#FFF44F',
+  'pale yellow':   '#FFFF99',
+
+  // ── Greens ──
+  'green':         '#16A34A',
+  'dark green':    '#006400',
+  'light green':   '#90EE90',
+  'sage green':    '#8A9A5B',
+  'sage':          '#8A9A5B',
+  'olive':         '#6B7F3E',
+  'olive green':   '#6B7F3E',
+  'army green':    '#4B5320',
+  'forest green':  '#228B22',
+  'emerald':       '#50C878',
+  'jade':          '#00A86B',
+  'lime':          '#A8D600',
+  'lime green':    '#32CD32',
+  'mint':          '#98D4C4',
+  'mint green':    '#98D4C4',
+  'sea green':     '#2E8B57',
+  'teal':          '#008080',
+  'hunter green':  '#355E3B',
+  'neon green':    '#39FF14',
+  'pistachio':     '#93C572',
+
+  // ── Blues ──
+  'blue':          '#2563EB',
+  'dark blue':     '#00008B',
+  'navy':          '#1B3A6B',
+  'navy blue':     '#1B3A6B',
+  'royal blue':    '#4169E1',
+  'cobalt':        '#0047AB',
+  'cobalt blue':   '#0047AB',
+  'indigo':        '#3B3B8C',
+  'dark indigo':   '#1E1B6B',
+  'medium blue':   '#4A78C4',
+  'light blue':    '#93C5FD',
+  'sky blue':      '#87CEEB',
+  'baby blue':     '#89CFF0',
+  'powder blue':   '#B0E0E6',
+  'steel blue':    '#4682B4',
+  'washed blue':   '#6B9EC5',
+  'denim':         '#1560BD',
+  'denim blue':    '#1560BD',
+  'ice blue':      '#99E1ED',
+  'ocean blue':    '#0077BE',
+  'aqua':          '#00FFFF',
+  'cyan':          '#00BCD4',
+  'turquoise':     '#40E0D0',
+  'cerulean':      '#007BA7',
+  'periwinkle':    '#CCCCFF',
+  'cornflower':    '#6495ED',
+
+  // ── Purples ──
+  'purple':        '#7B2D8E',
+  'dark purple':   '#4A0E4E',
+  'light purple':  '#B19CD9',
+  'violet':        '#7F00FF',
+  'lavender':      '#B57EDC',
+  'lilac':         '#C8A2C8',
+  'plum':          '#8E4585',
+  'grape':         '#6F2DA8',
+  'wine purple':   '#59345E',
+  'orchid':        '#DA70D6',
+  'amethyst':      '#9966CC',
+  'eggplant':      '#614051',
+
+  // ── Patterns & Special ──
+  'multi':         'linear-gradient(135deg,#C41230,#F59E0B,#2563EB,#16A34A)',
+  'multicolor':    'linear-gradient(135deg,#C41230,#F59E0B,#2563EB,#16A34A)',
+  'rainbow':       'linear-gradient(135deg,#FF0000,#FF7F00,#FFFF00,#00FF00,#0000FF,#8B00FF)',
+  'floral':        'linear-gradient(135deg,#F9A8D4,#FBBF24,#A78BFA)',
+  'abstract':      'linear-gradient(135deg,#6366F1,#EC4899,#F59E0B)',
+  'printed':       'linear-gradient(135deg,#4338CA,#EC4899)',
+  'tie dye':       'linear-gradient(135deg,#FF6B6B,#4ECDC4,#FFE66D,#A78BFA)',
+  'camo':          'linear-gradient(135deg,#4B5320,#6B7F3E,#2E3B1F)',
+  'camouflage':    'linear-gradient(135deg,#4B5320,#6B7F3E,#2E3B1F)',
+  'neon':          'linear-gradient(135deg,#39FF14,#FF1493,#00FFFF)',
+  'pastel':        'linear-gradient(135deg,#FFB6C1,#B0E0E6,#FFFACD)',
 };
 
+// Try to resolve a CSS colour from a colour name.
+// 1. Check the lookup map (split on "/" to handle compound names like "Brown/White")
+// 2. Try the full normalised name as a CSS named colour (covers "purple", "brown", etc.)
+// 3. Try the first part of a compound name as a CSS named colour
+// 4. Fall back to grey only as a last resort
 function getColorCss(name) {
-  const key = name.toLowerCase().split('/')[0].trim();
-  return COLOR_CSS[key] || COLOR_CSS[name.toLowerCase()] || '#888';
+  const full = name.toLowerCase().trim();
+  const key  = full.split('/')[0].trim();
+
+  // Direct lookup in the map
+  if (COLOR_CSS[key])  return COLOR_CSS[key];
+  if (COLOR_CSS[full]) return COLOR_CSS[full];
+
+  // Try the name as a native CSS colour (handles anything CSS recognises,
+  // e.g. "purple", "brown", "teal", "orchid", "sienna", "peru", etc.)
+  if (typeof document !== 'undefined') {
+    const ctx = document.createElement('canvas').getContext('2d');
+    ctx.fillStyle = '#000000';         // reset
+    ctx.fillStyle = key;               // attempt to set
+    if (ctx.fillStyle !== '#000000') return ctx.fillStyle;
+    ctx.fillStyle = '#000000';
+    ctx.fillStyle = full;
+    if (ctx.fillStyle !== '#000000') return ctx.fillStyle;
+  }
+
+  return '#888';
 }
 
 function getPlaceholderGradient(id, index = 0) {
