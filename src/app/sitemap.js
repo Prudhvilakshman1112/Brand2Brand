@@ -1,9 +1,9 @@
-import { createAdminClient } from '@/lib/supabase/admin';
+import { createClient } from '@supabase/supabase-js';
 
 const BASE_URL = 'https://brand2brand.com';
 
 export default async function sitemap() {
-  // Static pages
+  // Static pages — always returned even if DB is down
   const staticPages = [
     { url: BASE_URL, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
     { url: `${BASE_URL}/clothing`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
@@ -14,14 +14,24 @@ export default async function sitemap() {
     { url: `${BASE_URL}/footwear/women`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.8 },
   ];
 
-  // Dynamic product pages (use admin client — no cookie dependency for crawler requests)
+  // Dynamic product pages — uses public anon key (always available) with a 5s timeout
   let productPages = [];
   try {
-    const supabase = createAdminClient();
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    );
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+
     const { data: products } = await supabase
       .from('products')
       .select('id, created_at')
-      .eq('is_active', true);
+      .eq('is_active', true)
+      .abortSignal(controller.signal);
+
+    clearTimeout(timeout);
 
     productPages = (products || []).map((product) => ({
       url: `${BASE_URL}/product/${product.id}`,
@@ -30,8 +40,9 @@ export default async function sitemap() {
       priority: 0.6,
     }));
   } catch (e) {
-    // If DB is unreachable, still return static pages
+    // If DB is unreachable or times out, still return static pages
   }
 
   return [...staticPages, ...productPages];
 }
+
