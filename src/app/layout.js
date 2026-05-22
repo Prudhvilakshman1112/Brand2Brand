@@ -22,7 +22,7 @@ export const metadata = {
     description:
       'Shop the latest premium clothing, footwear, and accessories at Brand 2 Brand. Discover exclusive trends and top-tier styles with nationwide delivery.',
     type: 'website',
-    url: 'https://brand2brand.com',
+    url: 'https://brand2brands.com',
   },
 };
 

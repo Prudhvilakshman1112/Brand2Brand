@@ -5,6 +5,6 @@ export default function robots() {
       allow: '/',
       disallow: ['/api/', '/_next/'],
     },
-    sitemap: 'https://brand2brand.com/sitemap.xml',
+    sitemap: 'https://brand2brands.com/sitemap.xml',
   };
 }

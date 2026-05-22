@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 
-const BASE_URL = 'https://brand2brand.com';
+const BASE_URL = 'https://brand2brands.com';
 
 export default async function sitemap() {
   // Static pages — always returned even if DB is down
