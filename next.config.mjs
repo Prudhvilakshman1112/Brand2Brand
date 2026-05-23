@@ -3,24 +3,20 @@ const nextConfig = {
   // Allow LAN access for mobile testing
   allowedDevOrigins: ['192.168.0.109'],
 
-  // Image optimization
+  // Image optimization — offloaded to Cloudinary (stops Vercel transformation usage)
   images: {
+    loader: 'custom',
+    loaderFile: './src/lib/cloudinaryLoader.js',
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'xpmudrchipnbmvlawsuw.supabase.co',
-        pathname: '/storage/v1/object/public/**',
+        hostname: 'res.cloudinary.com',
       },
       {
         protocol: 'https',
-        hostname: 'res.cloudinary.com',
-        pathname: '/*/image/upload/**',
+        hostname: 'xpmudrchipnbmvlawsuw.supabase.co',
       },
     ],
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    qualities: [75, 85],
   },
 
   // Production optimizations
