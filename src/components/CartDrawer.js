@@ -11,6 +11,7 @@ const CATEGORY_DISCOUNT_LABELS = {
   clothing: 'Clothing (10% off)',
   footwear: 'Footwear (10% off)',
   accessories: 'Accessories (10% off)',
+  bags: 'Bags (15% off — Exclusive)',
 };
 
 function fmt(n) {

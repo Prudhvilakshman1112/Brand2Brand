@@ -12,6 +12,7 @@ const BANNER_ITEMS = [
   { emoji: '🎽', label: 'CLOTHING', pct: '10%', desc: 'Off All Clothing', color: '#C41230' },
   { emoji: '👟', label: 'FOOTWEAR', pct: '10%', desc: 'Off All Footwear', color: '#B8860B' },
   { emoji: '💎', label: 'ACCESSORIES', pct: '10%', desc: 'Off All Accessories', color: '#7C3AED' },
+  { emoji: '👜', label: 'BAGS', pct: '15%', desc: 'Off All Bags — Exclusive!', color: '#0D9488' },
 ];
 
 function DiscountBanner() {

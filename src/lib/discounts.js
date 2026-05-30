@@ -1,9 +1,10 @@
 /**
  * Brand 2 Brand — Category Discount Configuration
  *
- * Clothing   → 10% off
- * Footwear   → 10% off
- * Accessories → 10% off
+ * Clothing              → 10% off
+ * Footwear              → 10% off
+ * Accessories (general) → 10% off
+ * Accessories → Bags    → 15% off  (exclusive offer)
  */
 
 export const DISCOUNT_RATES = {
@@ -12,20 +13,28 @@ export const DISCOUNT_RATES = {
   accessories: 0.10,
 };
 
+/** Subcategory-level overrides (takes priority over category rate). */
+export const SUBCATEGORY_DISCOUNT_RATES = {
+  bags: 0.15,
+};
+
 export const DISCOUNT_LABELS = {
   clothing: '10% OFF',
   footwear: '10% OFF',
   accessories: '10% OFF',
 };
 
-/** Returns the discount rate (0–1) for a given category. */
-export function getDiscountRate(category) {
+/** Returns the discount rate (0–1) for a given category + optional subcategory. */
+export function getDiscountRate(category, subcategory) {
+  if (subcategory && subcategory in SUBCATEGORY_DISCOUNT_RATES) {
+    return SUBCATEGORY_DISCOUNT_RATES[subcategory];
+  }
   return DISCOUNT_RATES[category] ?? 0;
 }
 
-/** Returns the discounted price for a single item price + category. */
-export function applyDiscount(price, category) {
-  const rate = getDiscountRate(category);
+/** Returns the discounted price for a single item price + category + optional subcategory. */
+export function applyDiscount(price, category, subcategory) {
+  const rate = getDiscountRate(category, subcategory);
   return price * (1 - rate);
 }
 
@@ -34,26 +43,29 @@ export function applyDiscount(price, category) {
  *
  * Returns:
  * {
- *   originalTotal   — sum of price × quantity (no discounts)
- *   savingsByCategory — { clothing: N, footwear: N, accessories: N }
- *   totalSavings    — sum of all savings
- *   finalTotal      — original minus all savings
- *   itemBreakdown   — same items array with { originalLineTotal, discountedLineTotal, saving } added
+ *   originalTotal    — sum of price × quantity (no discounts)
+ *   savingsByCategory — { clothing: N, footwear: N, accessories: N, bags: N }
+ *   totalSavings     — sum of all savings
+ *   finalTotal       — original minus all savings
+ *   itemBreakdown    — same items array with { originalLineTotal, discountedLineTotal, saving } added
  * }
  */
 export function computeCartTotals(items) {
   let originalTotal = 0;
-  const savingsByCategory = { clothing: 0, footwear: 0, accessories: 0 };
+  const savingsByCategory = { clothing: 0, footwear: 0, accessories: 0, bags: 0 };
 
   const itemBreakdown = items.map((item) => {
-    const rate = getDiscountRate(item.category);
+    const rate = getDiscountRate(item.category, item.subcategory);
     const originalLineTotal = item.price * item.quantity;
     const discountedLineTotal = originalLineTotal * (1 - rate);
     const saving = originalLineTotal - discountedLineTotal;
 
     originalTotal += originalLineTotal;
 
-    if (item.category in savingsByCategory) {
+    // Bags get their own savings bucket; other accessories go into 'accessories'
+    if (item.subcategory === 'bags') {
+      savingsByCategory.bags += saving;
+    } else if (item.category in savingsByCategory) {
       savingsByCategory[item.category] += saving;
     }
 
@@ -101,7 +113,12 @@ export function buildWhatsAppMessage(itemBreakdown, totals) {
   lines.push('━━━━━━━━━━━━━━━━━━━━');
 
   // Category savings
-  const catNames = { clothing: 'Clothing (10% off)', footwear: 'Footwear (10% off)', accessories: 'Accessories (10% off)' };
+  const catNames = {
+    clothing: 'Clothing (10% off)',
+    footwear: 'Footwear (10% off)',
+    accessories: 'Accessories (10% off)',
+    bags: 'Bags (15% off — Exclusive)',
+  };
   for (const [cat, saving] of Object.entries(totals.savingsByCategory)) {
     if (saving > 0) {
       lines.push(`${catNames[cat]} saved: −₹${fmt(Math.round(saving))}`);
