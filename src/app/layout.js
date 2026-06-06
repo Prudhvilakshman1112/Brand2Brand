@@ -17,6 +17,11 @@ export const metadata = {
   description:
     'Shop the latest premium clothing, footwear, and accessories at Brand 2 Brand. Discover exclusive trends and top-tier styles with nationwide delivery.',
   keywords: 'Brand 2 Brand, premium fashion, clothing, footwear, accessories, e-commerce, nationwide delivery',
+  icons: {
+    icon: '/products/logo/B2blogo.jpg',
+    shortcut: '/products/logo/B2blogo.jpg',
+    apple: '/products/logo/B2blogo.jpg',
+  },
   openGraph: {
     title: 'Brand 2 Brand | Premium Multi-Brand E-Commerce Store',
     description:
