@@ -1256,6 +1256,16 @@ h5, h6 {
   margin-left: 8px;
 }
 
+/* Subtle product code tag below price — visible but unobtrusive */
+.product-card-code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--color-gray-300);
+  margin-top: 5px;
+  opacity: 0.6;
+}
+
 /* ── Product detail: dots ── */
 .pd-dots {
   display: flex;

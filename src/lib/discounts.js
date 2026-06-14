@@ -102,8 +102,9 @@ export function buildWhatsAppMessage(itemBreakdown, totals) {
 
   itemBreakdown.forEach((item, idx) => {
     const discount = item.rate > 0 ? ` → After ${Math.round(item.rate * 100)}% OFF: ₹${fmt(Math.round(item.discountedLineTotal))}` : '';
+    const codeTag = item.productCode ? ` [${item.productCode}]` : '';
     lines.push(
-      `${idx + 1}. *${item.name}*`,
+      `${idx + 1}. *${item.name}*${codeTag}`,
       `   Size: ${item.size || 'N/A'} | Colour: ${item.color || 'N/A'} | Qty: ${item.quantity}`,
       `   Price: ₹${fmt(item.price)} × ${item.quantity} = ₹${fmt(item.originalLineTotal)}${discount}`,
       '',

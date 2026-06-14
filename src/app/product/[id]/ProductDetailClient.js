@@ -404,6 +404,17 @@ export default function ProductDetailClient({ product, relatedProducts }) {
               )}
               <div className="product-info-brand">{product.brand}</div>
               <h1>{product.name}</h1>
+              {product.productCode && (
+                <div style={{
+                  fontFamily: "'Courier New', Courier, monospace",
+                  fontSize: '0.72rem',
+                  letterSpacing: '0.1em',
+                  color: 'var(--color-gray-300)',
+                  opacity: 0.7,
+                  marginBottom: '8px',
+                  marginTop: '-4px',
+                }}>#{product.productCode}</div>
+              )}
               <div className="product-info-price">
                 ₹{product.price.toLocaleString()}
                 {product.originalPrice && (
@@ -466,7 +477,7 @@ export default function ProductDetailClient({ product, relatedProducts }) {
               </button>
 
               <a
-                href={`https://wa.me/918074548419?text=Hi! I'm interested in ${product.name} (₹${product.price.toLocaleString()})${selectedColor ? ` in ${selectedColor}` : ''}${selectedSize ? `, Size ${selectedSize}` : ''}`}
+                href={`https://wa.me/918074548419?text=Hi! I'm interested in ${product.name}${product.productCode ? ` [${product.productCode}]` : ''} (₹${product.price.toLocaleString()})${selectedColor ? ` in ${selectedColor}` : ''}${selectedSize ? `, Size ${selectedSize}` : ''}`}
                 target="_blank" rel="noopener noreferrer"
                 className="btn-magnetic btn-magnetic--dark"
                 style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}

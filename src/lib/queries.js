@@ -59,6 +59,7 @@ function shapeProduct(row) {
     id: row.id,
     name: row.name,
     brand: row.brand,
+    productCode: row.product_code || null,
     category: row.subcategories?.categories?.slug || row.subcategories?.categories?.name?.toLowerCase() || '',
     subcategory: row.subcategories?.slug || row.subcategories?.name?.toLowerCase() || '',
     gender: row.gender || undefined,
@@ -77,14 +78,14 @@ function shapeProduct(row) {
 /** Full select — used for product detail page (needs description). */
 const PRODUCT_SELECT = `
   id, name, brand, gender, price, original_price, description,
-  sizes, colors, badge, atmosphere_theme, is_active, created_at,
+  sizes, colors, badge, atmosphere_theme, is_active, created_at, product_code,
   subcategories ( id, name, slug, categories ( id, name, slug ) ),
   product_images ( id, image_url, display_order, color_tag )
 `;
 
 /** Listing select — excludes description for lighter payloads. */
 const LISTING_SELECT = `
-  id, name, brand, gender, price, original_price,
+  id, name, brand, gender, price, original_price, product_code,
   sizes, colors, badge, atmosphere_theme,
   subcategories ( id, name, slug, categories ( id, name, slug ) ),
   product_images ( id, image_url, display_order, color_tag )

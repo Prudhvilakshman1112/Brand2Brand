@@ -223,6 +223,9 @@ export default function ProductCard({ product, hideColorThumbs = false }) {
             <span className="original-price">₹{product.originalPrice.toLocaleString()}</span>
           )}
         </div>
+        {product.productCode && (
+          <div className="product-card-code">#{product.productCode}</div>
+        )}
       </div>
 
       {/* ── Colour image thumbnails (hidden on home page) ─────────────────── */}
