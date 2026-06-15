@@ -6,11 +6,17 @@ import { useAtmosphere } from '@/context/AtmosphereContext';
 
 export default function FootwearGenderClient({ products, tabs, gender }) {
   const [activeTab, setActiveTab] = useState('all');
+  const [visibleCount, setVisibleCount] = useState(20);
   const { setCurrentAtmosphere } = useAtmosphere();
 
   useEffect(() => {
     setCurrentAtmosphere('footwear');
   }, [setCurrentAtmosphere]);
+
+  // Reset visible count when changing tabs
+  useEffect(() => {
+    setVisibleCount(20);
+  }, [activeTab]);
 
   const filtered = activeTab === 'all'
     ? products
@@ -47,10 +53,21 @@ export default function FootwearGenderClient({ products, tabs, gender }) {
           </div>
 
           <div className="products-grid">
-            {filtered.map(product => (
+            {filtered.slice(0, visibleCount).map(product => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
+
+          {visibleCount < filtered.length && (
+            <div style={{ textAlign: 'center', marginTop: '40px' }}>
+              <button 
+                className="btn-magnetic" 
+                onClick={() => setVisibleCount(prev => prev + 20)}
+              >
+                LOAD MORE
+              </button>
+            </div>
+          )}
 
           {filtered.length === 0 && (
             <div style={{

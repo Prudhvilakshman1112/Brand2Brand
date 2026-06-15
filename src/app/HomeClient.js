@@ -201,7 +201,7 @@ export default function HomeClient({ featured, newArrivals }) {
         <div className="container">
           <h2 className="section-title" style={{ color: '#fff' }}>TRENDING NOW</h2>
           <div className="products-grid">
-            {featured.map(product => (
+            {featured.slice(0, 8).map(product => (
               <ProductCard key={product.id} product={product} hideColorThumbs />
             ))}
           </div>
@@ -213,7 +213,7 @@ export default function HomeClient({ featured, newArrivals }) {
         <div className="container">
           <h2 className="section-title">NEW ARRIVALS</h2>
           <div className="products-grid">
-            {newArrivals.map(product => (
+            {newArrivals.slice(0, 8).map(product => (
               <ProductCard key={product.id} product={product} hideColorThumbs />
             ))}
           </div>

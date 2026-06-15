@@ -1,11 +1,14 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import ProductCard from '@/components/ProductCard';
 import { useAtmosphere } from '@/context/AtmosphereContext';
 
 export default function AccessoriesClient({ menWatches, womenWatches, bags }) {
+  const [visibleMen, setVisibleMen] = useState(12);
+  const [visibleWomen, setVisibleWomen] = useState(12);
+  const [visibleBags, setVisibleBags] = useState(12);
   const { setCurrentAtmosphere } = useAtmosphere();
 
   useEffect(() => {
@@ -59,10 +62,20 @@ export default function AccessoriesClient({ menWatches, womenWatches, bags }) {
         <div className="container">
           <h2 className="section-title" style={{ color: '#B8860B' }}>MEN&apos;S WATCHES</h2>
           <div className="products-grid" style={{ marginTop: '32px' }}>
-            {menWatches.map(product => (
+            {menWatches.slice(0, visibleMen).map(product => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
+          {visibleMen < menWatches.length && (
+            <div style={{ textAlign: 'center', marginTop: '40px' }}>
+              <button 
+                className="btn-magnetic" 
+                onClick={() => setVisibleMen(prev => prev + 12)}
+              >
+                LOAD MORE
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
@@ -72,10 +85,20 @@ export default function AccessoriesClient({ menWatches, womenWatches, bags }) {
           <div className="container">
             <h2 className="section-title" style={{ color: '#E84393' }}>WOMEN&apos;S WATCHES</h2>
             <div className="products-grid" style={{ marginTop: '32px' }}>
-              {womenWatches.map(product => (
+              {womenWatches.slice(0, visibleWomen).map(product => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
+            {visibleWomen < womenWatches.length && (
+              <div style={{ textAlign: 'center', marginTop: '40px' }}>
+                <button 
+                  className="btn-magnetic" 
+                  onClick={() => setVisibleWomen(prev => prev + 12)}
+                >
+                  LOAD MORE
+                </button>
+              </div>
+            )}
           </div>
         </section>
       )}
@@ -86,10 +109,20 @@ export default function AccessoriesClient({ menWatches, womenWatches, bags }) {
           <div className="container">
             <h2 className="section-title" style={{ color: '#FAFAFA' }}>PREMIUM BAGS</h2>
             <div className="products-grid" style={{ marginTop: '32px' }}>
-              {bags.map(product => (
+              {bags.slice(0, visibleBags).map(product => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
+            {visibleBags < bags.length && (
+              <div style={{ textAlign: 'center', marginTop: '40px' }}>
+                <button 
+                  className="btn-magnetic" 
+                  onClick={() => setVisibleBags(prev => prev + 12)}
+                >
+                  LOAD MORE
+                </button>
+              </div>
+            )}
           </div>
         </section>
       )}
