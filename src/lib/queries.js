@@ -112,8 +112,11 @@ export const getProductsBySubcategory = cache(async (categorySlug, subcategorySl
   const { data } = await supabase
     .from('products')
     .select(LISTING_SELECT)
-    .eq('is_active', true);
+    .eq('is_active', true)
+    .eq('subcategories.slug', subcategorySlug)
+    .eq('subcategories.categories.slug', categorySlug);
 
+  // Supabase nested filter doesn't eliminate parent rows, so filter client-side
   return (data || [])
     .filter(
       (p) =>
@@ -140,8 +143,10 @@ export const getFootwearByGender = cache(async (gender) => {
     .from('products')
     .select(LISTING_SELECT)
     .eq('is_active', true)
-    .eq('gender', gender);
+    .eq('gender', gender)
+    .eq('subcategories.categories.slug', 'footwear');
 
+  // Supabase nested filter doesn't eliminate parent rows, so confirm client-side
   return (data || [])
     .filter((p) => p.subcategories?.categories?.slug === 'footwear')
     .map(shapeProduct);
@@ -187,8 +192,9 @@ export const getRelatedProducts = cache(async (productId, categorySlug, limit = 
     .from('products')
     .select(LISTING_SELECT)
     .eq('is_active', true)
+    .eq('subcategories.categories.slug', categorySlug)
     .neq('id', productId)
-    .limit(20);
+    .limit(limit * 2); // Fetch a small buffer to account for Supabase nested-filter quirk
 
   return (data || [])
     .filter((p) => p.subcategories?.categories?.slug === categorySlug)
@@ -230,7 +236,8 @@ export const getAccessoriesGrouped = cache(async () => {
   const { data } = await supabase
     .from('products')
     .select(LISTING_SELECT)
-    .eq('is_active', true);
+    .eq('is_active', true)
+    .eq('subcategories.categories.slug', 'accessories');
 
   const accessories = (data || [])
     .filter((p) => p.subcategories?.categories?.slug === 'accessories')

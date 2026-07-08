@@ -5,7 +5,6 @@ import { AtmosphereProvider } from '@/context/AtmosphereContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import WhatsAppWidget from '@/components/WhatsAppWidget';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
 
 // Lazy-load heavy components — still SSR but code-split into separate chunks
@@ -46,7 +45,6 @@ export default function RootLayout({ children }) {
             </main>
             <Footer />
             <WhatsAppWidget />
-            <SpeedInsights />
             <Analytics />
           </AtmosphereProvider>
         </CartProvider>

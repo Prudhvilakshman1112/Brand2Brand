@@ -2,6 +2,9 @@ import { createClient } from '@supabase/supabase-js';
 
 const BASE_URL = 'https://brand2brands.com';
 
+// Regenerate sitemap at most once per day — prevents repeated DB calls on every crawl
+export const revalidate = 86400;
+
 export default async function sitemap() {
   // Static pages — always returned even if DB is down
   const staticPages = [

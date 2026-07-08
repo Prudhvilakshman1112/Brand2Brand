@@ -1,7 +1,7 @@
 import { getFeaturedProducts, getNewArrivals } from '@/lib/queries';
 import HomeClient from './HomeClient';
 
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 7200; // Revalidate every 2 hours — reduces ISR writes
 
 export default async function HomePage() {
   const [featured, newArrivals] = await Promise.all([

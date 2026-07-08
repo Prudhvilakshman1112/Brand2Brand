@@ -35,11 +35,52 @@ const nextConfig = {
     } : false,
   },
 
-  // Performance headers
+  // Performance + CDN caching headers — keeps serverless function invocations low
   async headers() {
     return [
+      // Category listing pages — CDN caches for 10 min, revalidates in background for 30 min
+      {
+        source: '/(clothing|footwear|accessories)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=600, stale-while-revalidate=1800',
+          },
+        ],
+      },
+      // Footwear gender sub-pages
+      {
+        source: '/footwear/:gender(men|women)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=600, stale-while-revalidate=1800',
+          },
+        ],
+      },
+      // Product detail pages — CDN caches for 30 min, revalidates in background for 2 hrs
+      {
+        source: '/product/:id',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=1800, stale-while-revalidate=7200',
+          },
+        ],
+      },
+      // Public images — 1 year immutable
       {
         source: '/images/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Product images served from /products/
+      {
+        source: '/products/:path*',
         headers: [
           {
             key: 'Cache-Control',
